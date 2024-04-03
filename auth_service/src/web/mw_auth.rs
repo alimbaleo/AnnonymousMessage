@@ -15,7 +15,7 @@ pub async fn mw_require_auth(cookies:Cookies, req: Request<Body>, next: Next) ->
     let auth_token = cookies.get(AUTH_TOKEN).map(|c| c.value().to_string());
    
     let (user_id, exp, sign) = auth_token.ok_or(Error::AuthFailed).and_then(parse_token)?;
-   
+  
     Ok(next.run(req).await)
 }
 
